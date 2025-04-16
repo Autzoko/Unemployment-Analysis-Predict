@@ -4,3 +4,6 @@
 dataset/raw/
 # Processed data files
 dataset/processed/
+
+# Environment variables
+.env
