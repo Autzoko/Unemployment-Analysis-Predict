@@ -2,3 +2,5 @@
 
 # Raw data files
 dataset/raw/
+# Processed data files
+dataset/processed/
