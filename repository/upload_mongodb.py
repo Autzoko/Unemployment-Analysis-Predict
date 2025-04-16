@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 PROCESSED_DATA_DIR='dataset/processed'
 ENV_FILE='.env.dev' #change to .env when deploying
 
-def load_mongo_config(env_file=ENV_FILE): #change to .env when deploying
+def load_mongo_config(env_file=ENV_FILE):
     load_dotenv(env_file)
     mongo_uri = os.getenv('MONGO_URI')
     mongo_db = os.getenv('MONGO_DB')
@@ -56,15 +56,7 @@ def upload_all(processed_root=PROCESSED_DATA_DIR):
     print("All files uploaded to MongoDB.")
 
 if __name__ == "__main__":      
-    #upload_all()
-    for root, _, files in os.walk('dataset/processed'):
-        for file in files:
-            if not file.endswith('.csv'):
-                continue
-
-            file_path = os.path.join(root, file)
-            rel_parts = os.path.relpath(file_path, 'dataset/processed').split(os.sep)
-            print(rel_parts)
+    upload_all()
 # This script uploads CSV files from the processed dataset directory to MongoDB.
 # It uses the pymongo library to connect to MongoDB and insert records.
 # The script first loads MongoDB configuration from environment variables using dotenv.
