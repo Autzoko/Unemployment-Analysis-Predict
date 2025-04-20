@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+  <g fill="#ccc" stroke="#333" stroke-width="1">
+    <path id="CA" d="M100,400 L120,420 L110,440 Z"/>
+    <path id="TX" d="M400,500 L420,520 L410,540 Z"/>
+    <path id="FL" d="M700,500 L720,520 L710,540 Z"/>
+    <path id="NY" d="M800,200 L820,220 L810,240 Z"/>
+    <path id="WA" d="M80,80 L100,100 L90,120 Z"/>
+    <path id="IL" d="M500,300 L520,320 L510,340 Z"/>
+    <path id="GA" d="M650,450 L670,470 L660,490 Z"/>
+    <path id="NC" d="M680,400 L700,420 L690,440 Z"/>
+    <path id="MI" d="M550,200 L570,220 L560,240 Z"/>
+    <path id="PA" d="M750,250 L770,270 L760,290 Z"/>
+    <!-- 其余州略，为演示示例 -->
+  </g>
+</svg>
