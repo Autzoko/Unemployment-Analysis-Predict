@@ -35,3 +35,33 @@ Demo illustrations.
 
 [U.S. Unemployment Raw Data Google Drive](https://drive.google.com/file/d/1Fr_achKvi9N5baA5Rz4N1Z3B5xbNQc6L/view?usp=share_link)
 *Decompress this data under `dataset/`.*
+
+### Data *Series_ID* Clarification
+
+For the *series_id* in each data, (i.e. LASST010000000000003)
+
+- LA: fixed prefix, no specific meaning.
+- S/U:
+  - S: Seaonal adjusted
+  - U: Non seasonal adjusted
+- ST/MT/DV/MC/CA/CN/CS/CT/PT/SA/ID/IM/BS/RD:
+  - ST: State
+  - MT: Metropolitan Statistical Area
+  - DV: Metropolitan Division
+  - MC: Micropolitan Statistical Area
+  - CA: Combined Statistical Area
+  - CN: County
+  - CS: Township/Town
+  - CT: City
+  - PT: City-County part
+  - RD: Region
+  - ID: Sub-part of Metropolitan Division
+  - IM/BS: Other
+- 13 bits of integer: Identifier
+- Last two bits of integer:
+  - 03: Unemployment rate (%)
+  - 04: Unemployment persons (n.)
+  - 05: Employed persons (n.)
+  - 06: Larbor force (n.)
+  - 07: Employment-population ratio (%)
+  - 08: Labor force participation rate (%)
