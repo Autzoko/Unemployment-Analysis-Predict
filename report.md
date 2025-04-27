@@ -11,7 +11,7 @@
 
 ### Frontend
 ```BASH
-cd us-map-interactive
+cd web/us-map-interactive
 ```
 
 ```BASH
