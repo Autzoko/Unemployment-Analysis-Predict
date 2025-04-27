@@ -119,7 +119,7 @@ export default router
 | **ColorLegend.vue** | Shows the color-to-unemployment-rate mapping legend. |
 
 **Note**:  
-- The map is likely controlled via **SVG** manipulation and possibly **D3.js** or direct CSS interaction.
+- The map is controlled via **SVG** manipulation and direct CSS interaction.
 - Unemployment data is preloaded or fetched via **JSON**.
 
 ---
