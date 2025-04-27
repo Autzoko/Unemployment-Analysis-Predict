@@ -31,6 +31,31 @@ This project aims to build a **Big Data Analytics and Prediction Platform** that
 
 ### Backend
 
+#### API
+
+GetUmemploymentRateByYear:
+
+```
+GET
+
+Request Params:
+year: integer
+month: integer
+
+Response Params:
+[
+    {
+        state: 'CA',
+        value: 0.05,
+    },
+    {
+        state: 'NY',
+        value: 0.06,
+    },
+    ...
+]
+```
+
 ### Frontend
 ```BASH
 cd web/us-map-interactive
