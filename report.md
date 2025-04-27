@@ -2,6 +2,28 @@
 
 ## Executive summary
 
+# Project Name
+**U.S. State Unemployment Rate Analysis and Prediction Platform**
+
+# Brief Summary
+The U.S. labor market is a dynamic ecosystem shaped by economic policies, global events, and regional disparities. Analyzing unemployment rates at the state level over time is crucial for policymakers, researchers, and businesses. However, traditional unemployment analysis methods often lack scalability, real-time insights, and predictive capabilities.  
+This project aims to build a **Big Data Analytics and Prediction Platform** that leverages distributed computing frameworks and machine learning to process, visualize, and forecast unemployment trends across all 50 U.S. states from 2000 to 2024. The platform will integrate historical data, provide real-time updates, and offer interactive dashboards, empowering stakeholders to explore trends and predict future scenarios accurately.
+
+# Objectives
+1. **Data Integration:** Aggregate and clean unemployment data from federal, state, and economic sources into a unified dataset spanning 2000–2024.
+2. **Distributed Processing:** Use Hadoop and PySpark to manage and query large-scale data (~315,000 records) efficiently.
+3. **Predictive Modeling:** Develop time-series forecasting models (e.g., ARIMA, Prophet) to predict state-level unemployment rates, incorporating economic indicators such as GDP and inflation.
+4. **Interactive Visualization:** Build a React.js frontend combined with Matplotlib and Dash to deliver dynamic, state-specific visualizations (e.g., heatmaps, trend lines, forecasts).
+5. **Real-time Dashboard:** Implement a Flask backend to serve APIs for real-time data updates and model predictions.
+6. **Scalability and Accuracy:** Ensure the system supports future data expansions and concurrent user access while minimizing prediction errors through iterative model training and validation.
+
+# Technologies Used
+- **Data Processing & Storage:** Hadoop, PySpark, Hive, Pandas, Numpy, BeautifulSoup
+- **Machine Learning & Forecasting:** Scikit-learn, PyTorch
+- **Models:** ARIMA, LSTM
+- **Backend & APIs:** Flask (Python), Azure Cosmos DB, PostgreSQL
+- **Frontend & Visualization:** React.js, Matplotlib, Plotly, Dash
+- **Programming Languages:** Python, SQL, JavaScript
 
 ## Code Execution Instructions
 
