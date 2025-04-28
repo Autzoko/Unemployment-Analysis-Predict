@@ -27,3 +27,14 @@ def get_area_code_by_area_name(area_name: str) -> str:
         raise ValueError(f'Area: {area_name} not found in database')
     
     return result["area_code"]
+
+def get_area_name_by_series_id(series_id: str) -> str:
+    client = get_mongo_client()
+    db = client[MONGO_DB]
+    collection = db["basic_info"]
+
+    result = collection.find_one({"area_code": series_id[3:-2]})
+    if not result:
+        raise ValueError("Series Id not found")
+    
+    return result["area_text"]
