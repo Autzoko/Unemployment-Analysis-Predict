@@ -18,11 +18,11 @@ This project aims to build a **Big Data Analytics and Prediction Platform** that
 6. **Scalability and Accuracy:** Ensure the system supports future data expansions and concurrent user access while minimizing prediction errors through iterative model training and validation.
 
 # Technologies Used
-- **Data Processing & Storage:** Hadoop, PySpark, Hive, Pandas, Numpy, BeautifulSoup
+- **Data Processing & Storage:** Hadoop, PySpark, Pandas, Numpy, BeautifulSoup
 - **Machine Learning & Forecasting:** Scikit-learn, PyTorch
 - **Models:** ARIMA, LSTM
-- **Backend & APIs:** Flask (Python), Azure Cosmos DB, PostgreSQL
-- **Frontend & Visualization:** React.js, Matplotlib, Plotly, Dash
+- **Backend & APIs:** FastAPI (Python), MongoDB, pyMongo
+- **Frontend & Visualization:** Vue.js, Matplotlib, Plotly
 - **Programming Languages:** Python, SQL, JavaScript
 
 ## Code Execution Instructions
