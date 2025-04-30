@@ -4,12 +4,12 @@ from pydantic import ValidationError
 from typing import List
 from services.data_service import get_unemployment_data
 from models.response_model import UnemploymentRateResponse
-from utils.spark_session import stop_spark_session
+from utils.mongo_client import close_mongo_client
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
-    stop_spark_session()
+    close_mongo_client()
 
 app = FastAPI(title="Unemployment Data API")
 
