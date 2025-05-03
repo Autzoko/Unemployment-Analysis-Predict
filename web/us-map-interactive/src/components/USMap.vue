@@ -31,8 +31,55 @@ const result = ref(null);
 const svgContainer = ref(null);
 const stateNameMap = {
   al: "Alabama",
+  ak: "Alaska",
+  az: "Arizona",
+  ar: "Arkansas",
   ca: "California",
+  co: "Colorado",
+  ct: "Connecticut",
+  de: "Delaware",
+  fl: "Florida",
+  ga: "Georgia",
+  hi: "Hawaii",
+  id: "Idaho",
+  il: "Illinois",
+  in: "Indiana",
+  ia: "Iowa",
+  ks: "Kansas",
+  ky: "Kentucky",
+  la: "Louisiana",
+  me: "Maine",
+  md: "Maryland",
+  ma: "Massachusetts",
+  mi: "Michigan",
+  mn: "Minnesota",
+  ms: "Mississippi",
+  mo: "Missouri",
+  mt: "Montana",
+  ne: "Nebraska",
+  nv: "Nevada",
+  nh: "New Hampshire",
+  nj: "New Jersey",
+  nm: "New Mexico",
+  ny: "New York",
+  nc: "North Carolina",
+  nd: "North Dakota",
+  oh: "Ohio",
+  ok: "Oklahoma",
+  or: "Oregon",
+  pa: "Pennsylvania",
+  ri: "Rhode Island",
+  sc: "South Carolina",
+  sd: "South Dakota",
+  tn: "Tennessee",
   tx: "Texas",
+  ut: "Utah",
+  vt: "Vermont",
+  va: "Virginia",
+  wa: "Washington",
+  wv: "West Virginia",
+  wi: "Wisconsin",
+  wy: "Wyoming"
 };
 
 // Tooltip 数据
@@ -48,11 +95,6 @@ const tooltip = ref({
 const updateTooltipPosition = (e) => {
   tooltip.value.x = e.pageX + 10;
   tooltip.value.y = e.pageY + 10;
-};
-
-const getUnemploymentRate = (stateName) => {
-  const record = data.find(item => item.state === stateName)
-  return record ? record.value : null
 };
 
 // 显示 tooltip（当鼠标进入某州时触发）
@@ -72,8 +114,8 @@ const showTooltip = async (code) => {
         visible: true,
         x: tooltip.value.x,
         y: tooltip.value.y,
-        state: code,
-        rate: data?.unemployment_rate ?? "Unknown",
+        state: state,
+        rate: data?.unemployment_rate.toFixed(2) ?? "Unknown",
       };
     } catch (error) {
       console.error("Error fetching unemployment data:", error);
@@ -81,7 +123,7 @@ const showTooltip = async (code) => {
         visible: true,
         x: tooltip.value.x,
         y: tooltip.value.y,
-        state: code,
+        state: state,
         rate: "False",
       };
     }
@@ -99,7 +141,7 @@ const showTooltip = async (code) => {
         visible: true,
         x: tooltip.value.x,
         y: tooltip.value.y,
-        state: code,
+        state: state,
         rate: record.value ?? "Unknown",
       };
     } catch (error) {
@@ -108,7 +150,7 @@ const showTooltip = async (code) => {
         visible: true,
         x: tooltip.value.x,
         y: tooltip.value.y,
-        state: code,
+        state: state,
         rate: "False",
       };
     }
