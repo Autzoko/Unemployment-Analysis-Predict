@@ -13,23 +13,26 @@
       class="tooltip"
       :style="{ top: tooltip.y + 'px', left: tooltip.x + 'px' }"
     >
-      <strong>{{ tooltip.state }}</strong><br />
+      <strong>{{ tooltip.state }}</strong
+      ><br />
       unemployment_rate:{{ tooltip.rate }}%
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, inject } from 'vue';
-import { unemploymentData } from '../data/unemployment.js';
-import usMapRaw from '../assets/us-map.svg?raw';
+import { ref, onMounted, inject } from "vue";
+import { unemploymentData } from "../data/unemployment.js";
+import usMapRaw from "../assets/us-map.svg?raw";
 
-const year = inject('currentYear'); // 从上层组件注入当前年份
-const month = inject('currentMonth');
+const year = inject("currentYear"); // 从上层组件注入当前年份
+const month = inject("currentMonth");
+const result = ref(null);
 const svgContainer = ref(null);
 const stateNameMap = {
-  al: 'Alabama',
-  ca: 'California',
+  al: "Alabama",
+  ca: "California",
+  tx: "Texas",
 };
 
 // Tooltip 数据
@@ -37,8 +40,8 @@ const tooltip = ref({
   visible: false,
   x: 0,
   y: 0,
-  state: '',
-  rate: '',
+  state: "",
+  rate: "",
 });
 
 // 更新 tooltip 位置
@@ -47,35 +50,70 @@ const updateTooltipPosition = (e) => {
   tooltip.value.y = e.pageY + 10;
 };
 
+const getUnemploymentRate = (stateName) => {
+  const record = data.find(item => item.state === stateName)
+  return record ? record.value : null
+};
+
 // 显示 tooltip（当鼠标进入某州时触发）
 const showTooltip = async (code) => {
-  console.log(code);
+  // console.log(code);
   // const rate = unemploymentData[year.value]?.[code];
-  const state = stateNameMap[code];
-  if (!state) return;
-  try {
-    const response = await fetch(
-      `http://127.0.0.1:8000/unemployment/predict?state=${state}&year=${year.value}&month=${month.value}`
-    );
-    const data = await response.json();
-    console.log('data', data);
-    tooltip.value = {
-      visible: true,
-      x: tooltip.value.x,
-      y: tooltip.value.y,
-      state: code,
-      rate: data?.unemployment_rate ?? 'Unknown',
-    };
-  } catch (error) {
-    console.error("Error fetching unemployment data:", error);
-    tooltip.value = {
-      visible: true,
-      x: tooltip.value.x,
-      y: tooltip.value.y,
-      state: code,
-      rate: 'False',
-    };
+  if ((year.value == 2025 && month.value >= 3) || year.value == 2026) {
+    const state = stateNameMap[code];
+    if (!state) return;
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/unemployment/predict?state=${state}&year=${year.value}&month=${month.value}`
+      );
+      const data = await response.json();
+      console.log("data", data);
+      tooltip.value = {
+        visible: true,
+        x: tooltip.value.x,
+        y: tooltip.value.y,
+        state: code,
+        rate: data?.unemployment_rate ?? "Unknown",
+      };
+    } catch (error) {
+      console.error("Error fetching unemployment data:", error);
+      tooltip.value = {
+        visible: true,
+        x: tooltip.value.x,
+        y: tooltip.value.y,
+        state: code,
+        rate: "False",
+      };
+    }
+  } else {
+    const state = stateNameMap[code];
+    if (!state) return;
+    try {
+      const response = await fetch(
+        `http://127.0.0.1:8000/unemployment/past?year=${year.value}&month=${month.value}`
+      );
+      const data = await response.json();
+      console.log(data);
+      const record = data.find(item => item.state === state)
+      tooltip.value = {
+        visible: true,
+        x: tooltip.value.x,
+        y: tooltip.value.y,
+        state: code,
+        rate: record.value ?? "Unknown",
+      };
+    } catch (error) {
+      console.error("Error fetching unemployment data:", error);
+      tooltip.value = {
+        visible: true,
+        x: tooltip.value.x,
+        y: tooltip.value.y,
+        state: code,
+        rate: "False",
+      };
+    }
   }
+
   // tooltip.value = {
   //   visible: true,
   //   x: tooltip.value.x,
@@ -95,15 +133,14 @@ onMounted(() => {
   if (svgContainer.value) {
     svgContainer.value.innerHTML = usMapRaw;
 
-    const paths = svgContainer.value.querySelectorAll('path');
-    paths.forEach(path => {
+    const paths = svgContainer.value.querySelectorAll("path");
+    paths.forEach((path) => {
       // console.log(path);
       const code = path.classList[0];
-      console.log(code);
-      path.addEventListener('mouseenter', () => {showTooltip(code)});
-      path.addEventListener('mouseleave', hideTooltip);
-
-
+      path.addEventListener("mouseenter", () => {
+        showTooltip(code);
+      });
+      path.addEventListener("mouseleave", hideTooltip);
     });
   }
 });
@@ -212,7 +249,7 @@ onMounted(() => {
   transition: transform 0.3s ease, fill 0.3s ease;
   cursor: pointer;
   /* transform-box: fill-box;        使 transform-origin 相对于图形本身 */
-  transform-origin: center;       /* 设置变换原点为图形中心 */
+  transform-origin: center; /* 设置变换原点为图形中心 */
 }
 
 .svg-map path:hover {
