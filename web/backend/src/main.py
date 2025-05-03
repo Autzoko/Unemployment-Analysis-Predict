@@ -5,6 +5,8 @@ from typing import List
 from services.data_service import get_unemployment_data
 from models.response_model import UnemploymentRateResponse
 from utils.mongo_client import close_mongo_client
+from services.database import prediction_collection
+from models.predictModel import Prediction
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -13,7 +15,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Unemployment Data API")
 
-@app.get("/unemployment", response_model=List[UnemploymentRateResponse])
+@app.get("/unemployment/past", response_model=List[UnemploymentRateResponse])
 async def get_unemployment(year: int, month: int):
     try:
         if not 1 <= month <= 12:
@@ -30,3 +32,11 @@ async def get_unemployment(year: int, month: int):
         raise HTTPException(status_code=422, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal server error: {str(e)}")
+
+@app.get("/unemployment/predict", response_model=Prediction)
+async def get_unemployment_rate(state: str, year: int, month: int):
+    query = {"state": state, "year": year, "month": month}
+    prediction = await prediction_collection.find_one(query)
+    if prediction:
+        return Prediction(**prediction)
+    raise HTTPException(status_code=404, detail="Data not found")
