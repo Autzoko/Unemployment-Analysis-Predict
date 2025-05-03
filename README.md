@@ -23,6 +23,28 @@
   - 预测数据
     - 直接写死，预测完数据写入数据库
 - 预测模型
+
+### 1 report ddl 05-06
+1 summary cyh
+2 Code Execution Instructions: 分开写
+3 Technological Challenges: 分开写
+4 Changes in Technology:分开写
+5 Uncovered Aspects from Presentations: 分开写
+6 Lessons Learned: llt
+7 Future Improvements: lxy 
+8 Data Sources, and Results: cyh
+
+### 2 ppt(找个模板) ddl 05-06
+2.1 summary
+2.2 Data Sources & data process & database
+2.3 backend
+2.4 frontend
+2.5 prediction
+2.6 live demo demonstration
+2.7 conclusion & future improvement
+### 3 code
+### 4 live demo cyh
+
 ## Demo
 Demo illustrations.
 
