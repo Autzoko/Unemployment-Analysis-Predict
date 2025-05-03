@@ -8,12 +8,22 @@ from utils.mongo_client import close_mongo_client
 from services.database import prediction_collection
 from models.predictModel import Prediction
 
+from fastapi.middleware.cors import CORSMiddleware
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     yield
     close_mongo_client()
 
 app = FastAPI(title="Unemployment Data API")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],  # 或 ["*"] 仅开发时使用
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/unemployment/past", response_model=List[UnemploymentRateResponse])
 async def get_unemployment(year: int, month: int):

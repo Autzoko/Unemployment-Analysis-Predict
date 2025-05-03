@@ -14,7 +14,7 @@
       :style="{ top: tooltip.y + 'px', left: tooltip.x + 'px' }"
     >
       <strong>{{ tooltip.state }}</strong><br />
-      失业率：{{ tooltip.rate }}%
+      unemployment_rate:{{ tooltip.rate }}%
     </div>
   </div>
 </template>
@@ -25,7 +25,12 @@ import { unemploymentData } from '../data/unemployment.js';
 import usMapRaw from '../assets/us-map.svg?raw';
 
 const year = inject('currentYear'); // 从上层组件注入当前年份
+const month = inject('currentMonth');
 const svgContainer = ref(null);
+const stateNameMap = {
+  al: 'Alabama',
+  ca: 'California',
+};
 
 // Tooltip 数据
 const tooltip = ref({
@@ -43,16 +48,41 @@ const updateTooltipPosition = (e) => {
 };
 
 // 显示 tooltip（当鼠标进入某州时触发）
-const showTooltip = (code) => {
+const showTooltip = async (code) => {
   console.log(code);
-  const rate = unemploymentData[year.value]?.[code];
-  tooltip.value = {
-    visible: true,
-    x: tooltip.value.x,
-    y: tooltip.value.y,
-    state: code,
-    rate: rate ?? '未知',
-  };
+  // const rate = unemploymentData[year.value]?.[code];
+  const state = stateNameMap[code];
+  if (!state) return;
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:8000/unemployment/predict?state=${state}&year=${year.value}&month=${month.value}`
+    );
+    const data = await response.json();
+    console.log('data', data);
+    tooltip.value = {
+      visible: true,
+      x: tooltip.value.x,
+      y: tooltip.value.y,
+      state: code,
+      rate: data?.unemployment_rate ?? 'Unknown',
+    };
+  } catch (error) {
+    console.error("Error fetching unemployment data:", error);
+    tooltip.value = {
+      visible: true,
+      x: tooltip.value.x,
+      y: tooltip.value.y,
+      state: code,
+      rate: 'False',
+    };
+  }
+  // tooltip.value = {
+  //   visible: true,
+  //   x: tooltip.value.x,
+  //   y: tooltip.value.y,
+  //   state: code,
+  //   rate: rate ?? 'Unknown',
+  // };
 };
 
 // 隐藏 tooltip
