@@ -1,0 +1,6 @@
+*.log
+*.dockerignore
+.pytest_cache/
+coverage/
+*.xml
+.vscode
