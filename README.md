@@ -2,27 +2,11 @@
 
 **U.S. State Unemployment Rate Analysis and Prediction Platform**
 
-## Abstract
-
-## Objectives
-
-## TODO List
-
-- 数据清洗（本周完成）
-  - 数据入库
-    - 数据筛选（每个州只保留百分比/实际失业人数）✅（貌似没有有问题的数据，但是需要弄清楚seriesid的具体意义）
-    - 转化成NoSQL（csv-MongoDB document）✅（考虑是否使用远端repo）
-- 前后端
-  - 前端（Vue.js）
-    - 设计：
-      - 年份选择器+地图形式展示各州历史数据和预测数据
-  - 后端（Flask/Django）
-    - API
-      - 获取州+月份特定数据（历史数据）（Spark）
-      - 获取预测数据（周+月份）
-  - 预测数据
-    - 直接写死，预测完数据写入数据库
-- 预测模型
+## Deploy
+```bash
+bash deploy.sh
+```
+This app will build three containers to run backend, frontend, and the database(MongoDB) locally. After deploy, visit http://localhost:8080 to check!
 
 ### 1 report ddl 05-06
 1 summary cyh

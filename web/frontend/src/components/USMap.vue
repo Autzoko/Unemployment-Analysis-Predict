@@ -22,7 +22,6 @@
 
 <script setup>
 import { ref, onMounted, inject } from "vue";
-import { unemploymentData } from "../data/unemployment.js";
 import usMapRaw from "../assets/us-map.svg?raw";
 
 const year = inject("currentYear"); // 从上层组件注入当前年份
@@ -106,7 +105,7 @@ const showTooltip = async (code) => {
     if (!state) return;
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/unemployment/predict?state=${state}&year=${year.value}&month=${month.value}`
+        `/api/unemployment/predict?state=${state}&year=${year.value}&month=${month.value}`
       );
       const data = await response.json();
       console.log("data", data);
@@ -132,7 +131,7 @@ const showTooltip = async (code) => {
     if (!state) return;
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/unemployment/past?year=${year.value}&month=${month.value}`
+        `/api/unemployment/past?year=${year.value}&month=${month.value}`
       );
       const data = await response.json();
       console.log(data);
@@ -308,5 +307,6 @@ onMounted(() => {
   border-radius: 4px;
   pointer-events: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  color: black;
 }
 </style>

@@ -1,18 +1,29 @@
 import os
 import pandas as pd
 from pymongo import MongoClient
+from dotenv import load_dotenv
 
-# MongoDB 配置
-MONGO_URI = "mongodb://localhost:27017/"
-DB_NAME = "unemployment_db"
-COLLECTION_NAME = "predictions"
+PROCESSED_DATA_DIR='dataset/predict'
+ENV_FILE='.env.dev'
+
+def load_mongo_config(env_file=ENV_FILE):
+    load_dotenv(env_file)
+    mongo_uri = os.getenv('MONGO_URI')
+    mongo_pred = os.getenv("MONGO_PREDICTION_DB")
+    
+    if not mongo_uri or not mongo_pred:
+        raise ValueError("MONGO_URI and MONGO_DB must be set in the environment variables.")
+    return mongo_uri, mongo_pred
+
+COLLECTION_NAME = "PredictionData"
 
 # CSV 文件目录
 CSV_DIR = os.path.join(os.path.dirname(__file__), '../dataset/predict')
 
 def upload_predictions():
-    client = MongoClient(MONGO_URI)
-    db = client[DB_NAME]
+    mongo_uri, mongo_pred = load_mongo_config()
+    client = MongoClient(mongo_uri)
+    db = client[mongo_pred]
     collection = db[COLLECTION_NAME]
 
     for filename in os.listdir(CSV_DIR):

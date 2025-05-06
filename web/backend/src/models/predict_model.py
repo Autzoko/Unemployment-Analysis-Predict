@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 
-class Prediction(BaseModel):
+class UnemploymentRatePrediction(BaseModel):
     state: str
     year: int
     month: int
