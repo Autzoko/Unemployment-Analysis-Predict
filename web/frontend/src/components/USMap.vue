@@ -1,13 +1,11 @@
 <template>
   <div>
-    <!-- SVG 地图容器 -->
     <div
       ref="svgContainer"
       class="svg-map"
       @mousemove="updateTooltipPosition"
     ></div>
 
-    <!-- Tooltip 显示当前州与失业率 -->
     <div
       v-if="tooltip.visible"
       class="tooltip"
@@ -24,7 +22,7 @@
 import { ref, onMounted, inject } from "vue";
 import usMapRaw from "../assets/us-map.svg?raw";
 
-const year = inject("currentYear"); // 从上层组件注入当前年份
+const year = inject("currentYear"); 
 const month = inject("currentMonth");
 const result = ref(null);
 const svgContainer = ref(null);
@@ -81,7 +79,6 @@ const stateNameMap = {
   wy: "Wyoming"
 };
 
-// Tooltip 数据
 const tooltip = ref({
   visible: false,
   x: 0,
@@ -90,13 +87,11 @@ const tooltip = ref({
   rate: "",
 });
 
-// 更新 tooltip 位置
 const updateTooltipPosition = (e) => {
   tooltip.value.x = e.pageX + 10;
   tooltip.value.y = e.pageY + 10;
 };
 
-// 显示 tooltip（当鼠标进入某州时触发）
 const showTooltip = async (code) => {
   // console.log(code);
   // const rate = unemploymentData[year.value]?.[code];
@@ -164,12 +159,10 @@ const showTooltip = async (code) => {
   // };
 };
 
-// 隐藏 tooltip
 const hideTooltip = () => {
   tooltip.value.visible = false;
 };
 
-// 加载 SVG 并绑定事件
 onMounted(() => {
   if (svgContainer.value) {
     svgContainer.value.innerHTML = usMapRaw;
@@ -245,12 +238,11 @@ onMounted(() => {
     const originY = bbox.y + bbox.height / 2
     path.style.transformOrigin = `${originX}px ${originY}px`
 
-    // 悬浮效果
+    // 
     path.addEventListener('mouseenter', (e) => {
       path.style.fill = '#ff0000'
       path.style.transform = 'scale(1.1)'
 
-      // 使当前州置顶
       path.parentNode.appendChild(path)
 
       showTooltip(code, e)
@@ -289,8 +281,8 @@ onMounted(() => {
 .svg-map path {
   transition: transform 0.3s ease, fill 0.3s ease;
   cursor: pointer;
-  /* transform-box: fill-box;        使 transform-origin 相对于图形本身 */
-  transform-origin: center; /* 设置变换原点为图形中心 */
+  /* transform-box: fill-box;      
+  transform-origin: center;  */
 }
 
 .svg-map path:hover {

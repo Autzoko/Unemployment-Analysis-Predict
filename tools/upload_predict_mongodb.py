@@ -17,7 +17,6 @@ def load_mongo_config(env_file=ENV_FILE):
 
 COLLECTION_NAME = "PredictionData"
 
-# CSV 文件目录
 CSV_DIR = os.path.join(os.path.dirname(__file__), '../dataset/predict')
 
 def upload_predictions():
@@ -31,14 +30,12 @@ def upload_predictions():
             filepath = os.path.join(CSV_DIR, filename)
             df = pd.read_csv(filepath)
 
-            # 清理数据：提取年月、转换类型
             df = df[['year', 'period', 'value', 'state_name']].copy()
             df['month'] = df['period'].str.extract(r'M(\d{2})').astype(int)
             df['year'] = df['year'].astype(int)
             df['unemployment_rate'] = df['value'].astype(float)
             df['state'] = df['state_name'].str.strip()
 
-            # 最终字段结构
             records = df[['state', 'year', 'month', 'unemployment_rate']].to_dict(orient='records')
 
             if records:
